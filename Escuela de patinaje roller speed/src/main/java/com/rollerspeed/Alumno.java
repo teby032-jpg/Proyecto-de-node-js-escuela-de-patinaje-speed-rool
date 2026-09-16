@@ -1,5 +1,6 @@
 package com.rollerspeed;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,18 +10,29 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 @Entity
+@Schema(description = "Representa un alumno de la escuela de patinaje Roller Speed")
 public class Alumno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Identificador único del alumno", example = "1")
     private Long id;
 
     @NotBlank(message = "El nombre es obligatorio")
+    @Schema(description = "Nombre completo del alumno", example = "Juan Pérez", required = true)
     private String nombre;
+    
     @Email(message = "El email no tiene un formato válido")
+    @Schema(description = "Correo electrónico del alumno", example = "juan.perez@email.com")
     private String email;
+    
+    @Schema(description = "Número de teléfono del alumno", example = "3001234567")
     private String telefono;
+    
     @Min(value = 3, message = "La edad mínima es 3 años")
+    @Schema(description = "Edad del alumno en años", example = "15", minimum = "3")
     private Integer edad;
+    
+    @Schema(description = "Nivel de patinaje del alumno", example = "Avanzado")
     private String nivel;
 
     public Long getId() {
