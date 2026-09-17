@@ -1,17 +1,20 @@
-# Proyecto-de-node-js-escuela-de-patinaje-speed-rool
-este proyecto est basado en un caso de studio
-
-# AUTORES DEL DESARROLLO ENCARGADOS DE ESTE PROYECTO
-
-* Estudiante Brayan Alejandro Durango Urrea.
-* Estudiante Esteban Murcia Prieto.
-* Estudiante Claudia Liliana Cabrera Cabezas.
-* Estudiante Danilo Jose Pino Ospino.
-* Estudiante Luis Javier García Orozco.
-
-Somos estudiantes con experiencia en la institucion universitaria digital de antioquia.
-
 # 🛼 Escuela de Patinaje Roller Speed
+
+Este proyecto está basado en un caso de estudio académico.
+
+## 👥 Autores del Desarrollo
+
+* Brayan Alejandro Durango Urrea
+* Esteban Murcia Prieto
+* Claudia Liliana Cabrera Cabezas
+* Danilo Jose Pino Ospino
+* Luis Javier García Orozco
+
+Estudiantes de la Institución Universitaria Digital de Antioquia.
+
+---
+
+## 📖 Descripción del Proyecto
 
 Aplicación backend desarrollada para la gestión de una escuela de patinaje. El proyecto permite administrar información relacionada con alumnos, clases, instructores y pagos mediante una API REST.
 
@@ -23,10 +26,11 @@ El proyecto fue desarrollado como parte de un caso de estudio académico, aplica
 * 🌱 Spring Boot 2.7.18
 * 🌐 Spring Web
 * 🗄️ Spring Data JPA
-* 🧪 H2 Database
-* 🐬 MySQL Connector/J
+* 🐬 PostgreSQL
+* 🧪 H2 Database (soporte adicional)
 * 📦 Maven
 * ✅ Bean Validation
+* 📚 Springdoc OpenAPI 1.7.0 (Swagger UI)
 
 ## 📋 Funcionalidades
 
@@ -100,7 +104,7 @@ Datos principales:
 
 ## 📁 Estructura del proyecto
 
-text
+```
 Escuela de patinaje roller speed/
 │
 ├── pom.xml
@@ -110,6 +114,8 @@ Escuela de patinaje roller speed/
         ├── java/
         │   └── com/
         │       └── rollerspeed/
+        │           ├── config/
+        │           │   └── OpenApiConfig.java
         │           ├── Alumno.java
         │           ├── AlumnoController.java
         │           ├── AlumnoRepository.java
@@ -126,14 +132,32 @@ Escuela de patinaje roller speed/
         │
         └── resources/
             └── application.properties
+```
 
 
 ## 🔗 Endpoints de la API
 
 La aplicación se ejecuta por defecto en:
 
-text
+```
 http://localhost:8080
+```
+
+### Interfaz web
+
+El proyecto incluye una interfaz web estática para la escuela de patinaje, accesible en:
+
+```
+http://localhost:8080/
+```
+
+La interfaz web incluye:
+* Página de inicio con información de la escuela
+* Secciones de Misión, Visión y Valores
+* Catálogo de servicios (Iniciación, Formación deportiva, Entrenamiento competitivo)
+* Eventos de la escuela
+* Formulario de inscripción
+* Diseño responsivo y moderno
 
 
 ### Alumnos
@@ -176,6 +200,74 @@ http://localhost:8080
 | POST   | /pagos      | Registra un pago        |
 | PUT    | /pagos/{id} | Actualiza un pago       |
 | DELETE | /pagos/{id} | Elimina un pago         |
+
+## 📚 Documentación de la API (Swagger/OpenAPI)
+
+El proyecto incluye **Springdoc OpenAPI** con **Swagger UI** para la documentación interactiva de la API REST.
+
+### Swagger UI
+
+La interfaz de Swagger UI está disponible en:
+
+```
+http://localhost:8080/swagger-ui.html
+```
+
+Esta interfaz permite:
+* Visualizar todos los endpoints de la API
+* Probar los endpoints directamente desde el navegador
+* Ver los modelos de datos y esquemas
+* Consultar documentación detallada de cada operación
+
+### Documentación OpenAPI
+
+El documento OpenAPI (JSON) está disponible en:
+
+```
+http://localhost:8080/v3/api-docs
+```
+
+### Configuración de SpringDoc
+
+La configuración de Springdoc se encuentra en:
+
+```
+src/main/resources/application.properties
+```
+
+Propiedades configuradas:
+
+```properties
+springdoc.api-docs.path=/v3/api-docs
+springdoc.swagger-ui.path=/swagger-ui.html
+springdoc.swagger-ui.operations-sorter=alpha
+springdoc.swagger-ui.tags-sorter=alpha
+springdoc.swagger-ui.try-it-out-enabled=true
+```
+
+### Archivo de configuración OpenAPI
+
+La configuración personalizada de OpenAPI se encuentra en:
+
+```
+src/main/java/com/rollerspeed/config/OpenApiConfig.java
+```
+
+Configuración actual:
+* Título: "Roller Speed API"
+* Descripción: "API REST para la gestión de la escuela de patinaje Roller Speed."
+* Versión: "1.0.0"
+* Contacto: https://github.com/teby032-jpg/Proyecto-de-node-js-escuela-de-patinaje-speed-rool
+
+### Endpoints documentados
+
+La API está completamente documentada con anotaciones de Swagger en cada controlador:
+
+* **@Tag**: Organización por grupos (Alumnos, Clases, Instructores, Pagos)
+* **@Operation**: Descripción de cada endpoint
+* **@Parameter**: Documentación de parámetros
+* **@ApiResponse**: Documentación de respuestas (códigos HTTP, descripciones, schemas)
+* **@Schema**: Documentación de entidades (Alumno, Clase, Instructor, Pago)
 
 ## 🧪 Ejemplos de solicitudes
 
@@ -237,7 +329,7 @@ json
 
 ## 🗄️ Base de datos
 
-Actualmente el proyecto utiliza H2 Database como base de datos en memoria.
+El proyecto utiliza **PostgreSQL** como base de datos principal para persistencia de datos.
 
 La configuración se encuentra en:
 
@@ -246,6 +338,32 @@ src/main/resources/application.properties
 
 
 Configuración utilizada:
+
+properties
+spring.datasource.url=${DB_URL:jdbc:postgresql://localhost:5432/rollerspeed}
+spring.datasource.driverClassName=org.postgresql.Driver
+spring.datasource.username=${DB_USERNAME:postgres}
+spring.datasource.password=${DB_PASSWORD:tu_password}
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQL10Dialect
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+
+
+### Variables de entorno
+
+Para configurar la conexión a PostgreSQL, puedes establecer las siguientes variables de entorno:
+
+text
+DB_URL=jdbc:postgresql://localhost:5432/rollerspeed
+DB_USERNAME=postgres
+DB_PASSWORD=tu_password
+
+
+### Base de datos H2 (soporte adicional)
+
+El proyecto también incluye H2 Database como base de datos en memoria para pruebas o desarrollo local.
+
+Configuración H2:
 
 properties
 spring.datasource.url=jdbc:h2:mem:rollerspeed;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
@@ -261,13 +379,13 @@ spring.h2.console.path=/h2-console
 
 ### Consola H2
 
-Una vez iniciada la aplicación, la consola puede consultarse en:
+Una vez iniciada la aplicación, la consola H2 puede consultarse en:
 
 text
 http://localhost:8080/h2-console
 
 
-Configuración de conexión:
+Configuración de conexión H2:
 
 text
 JDBC URL: jdbc:h2:mem:rollerspeed
@@ -370,7 +488,21 @@ En el caso de los alumnos:
 
 🚧 Proyecto académico en desarrollo.
 
-El proyecto contiene la implementación de una API REST básica para la administración de una escuela de patinaje y puede ampliarse posteriormente con nuevas funcionalidades, relaciones entre entidades, autenticación, documentación mediante Swagger/OpenAPI y conexión a una base de datos persistente.
+El proyecto contiene la implementación completa de una API REST para la administración de una escuela de patinaje con las siguientes características implementadas:
+
+✅ API REST con operaciones CRUD para Alumnos, Clases, Instructores y Pagos
+✅ Conexión a base de datos PostgreSQL para persistencia de datos
+✅ Validación de datos con Bean Validation
+✅ Documentación completa de la API con Springdoc OpenAPI y Swagger UI
+✅ Interfaz web estática para la escuela de patinaje
+✅ Soporte adicional para base de datos H2 para pruebas
+
+El proyecto puede ampliarse posteriormente con nuevas funcionalidades como:
+* Relaciones entre entidades
+* Autenticación y autorización
+* Sistema de login para la interfaz web
+* Integración con pasarelas de pagos
+* Reportes y estadísticas
 
 
 Proyecto académico — Escuela de Patinaje Roller Speed.
