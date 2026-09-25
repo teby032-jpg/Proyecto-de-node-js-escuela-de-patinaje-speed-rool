@@ -1,0 +1,14 @@
+com\rollerspeed\AlumnoController.class
+com\rollerspeed\Instructor.class
+com\rollerspeed\AlumnoRepository.class
+com\rollerspeed\RollerSpeedApplication.class
+com\rollerspeed\Pago.class
+com\rollerspeed\config\OpenApiConfig.class
+com\rollerspeed\InstructorController.class
+com\rollerspeed\PagoRepository.class
+com\rollerspeed\InstructorRepository.class
+com\rollerspeed\Alumno.class
+com\rollerspeed\PagoController.class
+com\rollerspeed\Clase.class
+com\rollerspeed\ClaseController.class
+com\rollerspeed\ClaseRepository.class
